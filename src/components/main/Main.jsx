@@ -6,6 +6,21 @@ import Twiter from "../../assets/icons/twiter.svg";
 import Link from "../../assets/icons/link.svg";
 import Office from "../../assets/icons/office.svg";
 
+const month = {
+  '01':'Jan',
+  '02':'Feb',
+  '03':'Mar',
+  '04':'Apr',
+  '05':'May',
+  '06':'Jun',
+  '07':'Jul',
+  '08':'Avg',
+  '09':'Sep',
+  '10':'Okt',
+  '11':'Nov',
+  '12':'Dec',
+}
+
 const Main = () => {
   const [data, setData] = useState({});
   const { isValue } = useContext(FormContext);
@@ -22,7 +37,7 @@ const Main = () => {
         setStatus(true);
       });
   }, [isValue]);
-  console.log();
+  let joinData =String(data.created_at).slice(8,10)+' '+month[String(data.created_at).slice(5,7)]+ ' '+String(data.created_at).slice(0,4)
 
   return (
     <main className="w-full rounded-2xl p-12 max-[620px]:pt-8 max-[620px]:px-6 shadow-xl shadow-[#4660bb33] dark:shadow-[transparent] bg-[#fefefe] dark:bg-[#1e2a47]">
@@ -37,11 +52,11 @@ const Main = () => {
             <h2 className="font-bold text-[26px] max-[620px]:text-base  text-[#2b3442] dark:text-[#fff]">
               {data.name == null ? "No Name" : data.name}
             </h2>
-            <p className="profile-user_name font-normal text-[15px] max-[620px]:text-[13px] text-[#0079ff]">
+            <a href={data.html_url} className="profile-user_name font-normal text-[15px] max-[620px]:text-[13px] text-[#0079ff]">
               @{data.login}
-            </p>
+            </a>
             <p className=" text-[#697c9a] dark:text-[#fff] font-normal -translate-y-14 opacity-75 text-right max-md:text-left max-md:translate-y-0  max-[620px]:text-[13px]">
-              Joined {data.created_at}
+              Joined {joinData}
             </p>
           </div>
         </div>
@@ -80,7 +95,8 @@ const Main = () => {
               href={
                 data.twitter_username == null ? "#!" : data.twitter_username
               }
-              className="tiwiter flex gap-4 opacity-5"
+              className="tiwiter flex gap-4 opacity-70"
+
             >
               <Twiter />
               <span className="font-normal text-[15px] text-[#4b6a9b] dark:text-[#fff]">
@@ -102,7 +118,7 @@ const Main = () => {
             </a>
 
             <a
-              href={data.organizations_url}
+              href='#!'
               className="github-userName flex gap-4"
             >
               <Office />
